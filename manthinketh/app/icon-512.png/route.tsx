@@ -1,7 +1,7 @@
-import { renderIcon } from "../icons";
+import { iconFile } from "../icons";
 
 export const dynamic = "force-static";
 
 export function GET() {
-  return renderIcon({ size: 512, padding: 0 });
+  return iconFile("icon-512.png");
 }

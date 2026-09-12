@@ -1,9 +1,7 @@
 import Image from "next/image";
-import logo from "@/public/logo.png";
 
 /**
- * Το λογότοπο σε μαύρο πλαίσιο. Είναι πάνω από το fold, άρα φορτώνεται με
- * προτεραιότητα και σε ακριβές μέγεθος για να μην κοστίζει τίποτα στο layout.
+ * Το λογότυπο (μυαλό + δάφνη) σε μαύρο πλαίσιο — ίδιο σήμα με favicon / PWA.
  */
 export function BrandMark({ size = 36, className = "" }: { size?: number; className?: string }) {
   return (
@@ -12,7 +10,7 @@ export function BrandMark({ size = 36, className = "" }: { size?: number; classN
       style={{ width: size, height: size }}
     >
       <Image
-        src={logo}
+        src="/icons/logo-mark.png"
         alt="ManThinketh"
         width={size}
         height={size}

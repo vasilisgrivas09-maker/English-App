@@ -1,5 +1,14 @@
-const CACHE = "amt-v3";
-const PRECACHE = ["/", "/manifest.webmanifest", "/logo.png", "/icon-192.png", "/icon-512.png"];
+const CACHE = "amt-v4";
+const PRECACHE = [
+  "/",
+  "/manifest.webmanifest",
+  "/logo.png",
+  "/icons/icon-192.png",
+  "/icons/icon-512.png",
+  "/icons/icon-maskable.png",
+  "/icons/icon-180.png",
+  "/icons/favicon-32.png",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
