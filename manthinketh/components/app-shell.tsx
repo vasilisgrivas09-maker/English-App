@@ -135,7 +135,7 @@ export function AppShell() {
         </button>
       )}
 
-      <div className="mx-auto w-full max-w-[1280px] overflow-x-hidden px-3 pt-4 md:px-6 md:pt-6">
+      <div className="mx-auto w-full max-w-[1280px] overflow-x-hidden px-safe pt-4 md:px-6 md:pt-6">
         <div
           className="w-full"
           role="tablist"
@@ -173,7 +173,7 @@ export function AppShell() {
         </div>
       </div>
 
-      <main className="mx-auto w-full max-w-[1280px] flex-1 overflow-x-hidden px-3 py-4 md:px-6 md:py-8">
+      <main className="mx-auto w-full max-w-[1280px] flex-1 overflow-x-hidden px-safe py-4 md:px-6 md:py-8">
         {tab === "lessons" && !activeLesson && completedLesson !== null && (
           <LessonComplete
             lessonId={completedLesson}
@@ -259,7 +259,7 @@ export function AppShell() {
         )}
       </main>
 
-      <footer className="mx-auto w-full max-w-[1280px] overflow-hidden px-3 pt-2 pb-safe md:px-6">
+      <footer className="mx-auto w-full max-w-[1280px] overflow-hidden px-safe pt-2 pb-safe md:px-6">
         <p className="text-center text-[10px] tracking-wide break-words opacity-50 md:text-[11px]">
           As a Man Thinketh · {TOTAL_WORDS} λέξεις · SM-2 · αποθήκευση στη συσκευή σου
         </p>

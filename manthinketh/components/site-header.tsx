@@ -24,8 +24,8 @@ export function SiteHeader({
   isStandalone,
 }: Props) {
   return (
-    <header className="sticky top-0 z-40 border-b border-zinc-200/60 bg-paper/80 backdrop-blur-xl dark:border-zinc-800/80 dark:bg-ink/80">
-      <div className="mx-auto flex h-[60px] w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 px-3 md:h-[68px] md:px-6">
+    <header className="sticky top-0 z-40 border-b border-zinc-200/60 bg-paper/80 pt-safe backdrop-blur-xl dark:border-zinc-800/80 dark:bg-ink/80">
+      <div className="mx-auto flex h-[60px] w-full max-w-[1280px] min-w-0 items-center justify-between gap-2 px-safe md:h-[68px] md:px-6">
         <div className="flex min-w-0 shrink items-center gap-2.5 md:gap-3">
           <BrandMark size={38} />
           <div className="min-w-0 leading-none">
@@ -91,7 +91,7 @@ export function SiteHeader({
         </div>
       </div>
 
-      <div className="flex min-w-0 items-center justify-between gap-2 overflow-hidden px-3 pb-2.5 md:hidden">
+      <div className="flex min-w-0 items-center justify-between gap-2 overflow-hidden px-safe pb-2.5 md:hidden">
         <span className="flex items-center gap-1.5 rounded-full border border-brand-100 bg-brand-50 px-2.5 py-1 text-[10px] font-medium text-brand-700 dark:border-brand-700/50 dark:bg-brand-900/50 dark:text-brand-300">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />
           τοπικά
