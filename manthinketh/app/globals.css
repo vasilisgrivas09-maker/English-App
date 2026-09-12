@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+/* Class-based dark mode (Tailwind v4 opt-in) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+  --breakpoint-xs: 420px;
+
+  /* Παλέτα από το λογότυπο: βαθύ πράσινο εγκεφάλου + χρυσό στεφάνι δάφνης */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-300: #6ee7b7;
+  --color-brand-500: #16a34a;
+  --color-brand-600: #15803d;
+  --color-brand-700: #0f5132;
+  --color-brand-900: #052e1b;
+  --color-gold-300: #fcd34d;
+  --color-gold-400: #f5c033;
+  --color-gold-500: #e0a92a;
+  --color-ink: #0a0a0b;
+  --color-paper: #fcfaf8;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  /* Απαλό φωτεινό «σύννεφο» στο πάνω μέρος — μόνο CSS, κανένα κόστος σε JS. */
+  background-image: radial-gradient(
+      60rem 28rem at 50% -8rem,
+      color-mix(in oklab, var(--color-brand-500) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40rem 20rem at 100% 0,
+      color-mix(in oklab, var(--color-gold-400) 8%, transparent),
+      transparent 70%
+    );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.dark body {
+  background-image: radial-gradient(
+      60rem 28rem at 50% -8rem,
+      color-mix(in oklab, var(--color-brand-500) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40rem 20rem at 100% 0,
+      color-mix(in oklab, var(--color-gold-500) 8%, transparent),
+      transparent 70%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Safe areas για iOS standalone mode */
+@utility pb-safe {
+  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+}
+
+/* Λίστες με πολλές κάρτες: ο browser παραλείπει το layout όσων δεν φαίνονται. */
+@utility card-perf {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 220px;
+}
+
+/* Ανασηκώνεται απαλά στο hover, βουλιάζει στο πάτημα. */
+@utility lift {
+  transition:
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.22s ease;
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px -18px rgba(15, 81, 50, 0.45);
+  }
+  &:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+}
+
+@utility press {
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.14s ease;
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Χρυσή λάμψη γύρω από τα κύρια κουμπιά. */
+@utility glow-gold {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-gold-400) 45%, transparent),
+    0 10px 30px -12px color-mix(in oklab, var(--color-gold-400) 55%, transparent);
+}
+
+@utility ring-brand {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-brand-500) 22%, transparent);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@utility animate-toast-in {
+  animation: toast-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@utility animate-pop-in {
+  animation: pop-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.18s ease-out;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Κάρτες που εμφανίζονται με μικρή διαδοχική καθυστέρηση (stagger). */
+@utility animate-rise {
+  animation: rise-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@utility skeleton {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in oklab, currentColor 6%, transparent) 25%,
+    color-mix(in oklab, currentColor 14%, transparent) 37%,
+    color-mix(in oklab, currentColor 6%, transparent) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes sheen {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(320%) skewX(-18deg);
+  }
+}
+
+/* Λάμψη που περνά μία φορά πάνω από τα πλαίσια επιτυχίας. */
+@utility animate-sheen {
+  animation: sheen 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(0.6) rotate(-12deg);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.12) rotate(4deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@utility animate-celebrate {
+  animation: celebrate 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0), -120px) scale(1.1) rotate(var(--rot, 0deg));
+  }
+}
+
+@utility animate-confetti {
+  animation: float-up 1.5s ease-out both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* Ορατό focus ring για πληκτρολόγιο, χωρίς θόρυβο στο ποντίκι */
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+  border-radius: 9999px;
+}
+
+.dark :focus-visible {
+  outline-color: var(--color-brand-300);
+}
+
+::selection {
+  background-color: var(--color-brand-700);
+  color: #fff;
+}
+
+.dark ::selection {
+  background-color: var(--color-gold-400);
+  color: #18181b;
+}
